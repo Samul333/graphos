@@ -7,25 +7,24 @@ import { Input } from "../ui/input";
 import  * as z from "zod"
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import useDesigner from "../hooks/useDesigner";
 import {Form,FormControl,FormDescription,FormField,FormItem,FormMessage,FormLabel} from "../ui/form"
-import { Switch } from "../ui/switch";
-import { cn } from "@/lib/utils";
-import { LuHeading1 } from "react-icons/lu";
-const type:ElementsType = "TitleField"
+
+import { BsTextParagraph } from "react-icons/bs";
+const type:ElementsType = "ParagraphField"
 
 const extraAttributes = {
-    title:"Title field",
+    text:"Text here",
 
 }
 
 const propertiesSchema = z.object({
-    title:z.string().min(2).max(50),
+    text:z.string().min(2).max(500),
 
 })
 
-export const TitleFieldFormElement:FormElement= {
+export const ParagraphFieldFormElement:FormElement= {
     type,
     construct:(id:string)=>({
         id,
@@ -33,8 +32,8 @@ export const TitleFieldFormElement:FormElement= {
         extraAttributes
     }),
     designerBtnElement:{
-        icon:LuHeading1,
-        label:"Title Field"
+        icon:BsTextParagraph,
+        label:"Paragraph Field"
     },
     designerComponent:DesignerComponent,
     formComponent:FormComponent,
@@ -67,12 +66,12 @@ function FormComponent({elementInstance}:{elementInstance:FormElementInstance}){
 
 function DesignerComponent({elementInstance}:{elementInstance:FormElementInstance}){
    const element = elementInstance as CustomInstance 
-   const {title} = element.extraAttributes
+   const {text} = element.extraAttributes
    return  <div className="flex flex-col gap-2 w-full">
     <Label>
-        Title Field Here
+        Paragraph Field
     </Label>
-    <p className="text-xl">{title}</p>
+    <p className="text-xl">{text}</p>
    </div>
 }
 
@@ -85,7 +84,7 @@ function PropertiesComponent({elementInstance}:{elementInstance:FormElementInsta
         resolver:zodResolver(propertiesSchema),
         mode:"onBlur",
         defaultValues:{
-          title:element.extraAttributes.title
+          text:element.extraAttributes.text
         }
     })
 
@@ -108,10 +107,10 @@ function PropertiesComponent({elementInstance}:{elementInstance:FormElementInsta
             e.preventDefault();
         }} onBlur={form.handleSubmit(applyChanges)} className="space-y-3">
             <FormField control={form.control}
-            name="title"
+            name="text"
             render={({field})=>{
                 return <FormItem>
-                    <FormLabel>Title</FormLabel>
+                    <FormLabel>Paragraph</FormLabel>
                     <FormControl>
                         <Input onKeyDown={(e)=>{
                             if(e.key==="Enter")e.currentTarget.blur()

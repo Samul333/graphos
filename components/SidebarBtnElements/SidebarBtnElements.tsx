@@ -5,6 +5,9 @@ import { useDraggable } from '@dnd-kit/core'
 
 function SidebarBtnElements({formElement}:{formElement:FormElement}) {
   const {label,icon:Icon} =  formElement.designerBtnElement
+
+  console.log(formElement,"Here is the form element")
+
   const draggable = useDraggable({
     id:`designer-btn-${formElement.type}`,
     data:{

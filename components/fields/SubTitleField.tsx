@@ -12,11 +12,11 @@ import useDesigner from "../hooks/useDesigner";
 import {Form,FormControl,FormDescription,FormField,FormItem,FormMessage,FormLabel} from "../ui/form"
 import { Switch } from "../ui/switch";
 import { cn } from "@/lib/utils";
-import { LuHeading1 } from "react-icons/lu";
-const type:ElementsType = "TitleField"
+import { LuHeading1, LuHeading2 } from "react-icons/lu";
+const type:ElementsType = "SubTitleField"
 
 const extraAttributes = {
-    title:"Title field",
+    title:"SubTitle field",
 
 }
 
@@ -25,7 +25,7 @@ const propertiesSchema = z.object({
 
 })
 
-export const TitleFieldFormElement:FormElement= {
+export const SubTitleFieldFormElement:FormElement= {
     type,
     construct:(id:string)=>({
         id,
@@ -33,8 +33,8 @@ export const TitleFieldFormElement:FormElement= {
         extraAttributes
     }),
     designerBtnElement:{
-        icon:LuHeading1,
-        label:"Title Field"
+        icon:LuHeading2,
+        label:"SubTitle Field"
     },
     designerComponent:DesignerComponent,
     formComponent:FormComponent,
@@ -57,7 +57,7 @@ function FormComponent({elementInstance}:{elementInstance:FormElementInstance}){
 
 
     return  <div className="flex flex-col gap-2 w-full">
-            <p className="text-xl">{title}</p>
+            <p className="text-lg">{title}</p>
     </div>
  }
  
@@ -70,9 +70,9 @@ function DesignerComponent({elementInstance}:{elementInstance:FormElementInstanc
    const {title} = element.extraAttributes
    return  <div className="flex flex-col gap-2 w-full">
     <Label>
-        Title Field Here
+        SubTitle Field
     </Label>
-    <p className="text-xl">{title}</p>
+    <p className="text-lg">{title}</p>
    </div>
 }
 
