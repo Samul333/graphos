@@ -62,7 +62,7 @@ export default function LandingPage() {
           </div>
   
           <div className="flex gap-4">
-            <Link href="/sign-in" passHref>
+            <Link href="/sign-up" passHref>
               <Button variant="ghost" className="text-indigo-700 font-medium">
                 Sign In
               </Button>
