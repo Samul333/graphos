@@ -4,7 +4,8 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { motion } from "framer-motion";
-import { FiCheckCircle, FiEdit3, FiLink } from "react-icons/fi";
+import {FiEdit3, FiLink, FiCheckCircle, FiGithub, FiLinkedin, FiCode } from "react-icons/fi";
+import BuiltWith from "../BuiltWith/BuiltWith";
 
 interface FeatureCardProps {
   icon: React.ReactNode;
@@ -47,92 +48,126 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ icon, title, desc }) => {
     </motion.div>
   );
 };
-
 export default function LandingPage() {
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-indigo-100 flex flex-col">
-      {/* Navbar */}
-      <header className="w-full py-6 px-8 flex justify-between items-center">
-        <div className="flex flex-row items-center">
-        <img src="/doggo-logo-min.png" className="w-[90px]  object-contain" alt=""/>
-
-            <h1 className="text-3xl font-bold text-indigo-700">FormCraft</h1>
-        </div>
-
-        <div className="flex gap-4">
-          <Link href="/sign-in" passHref>
-            <Button variant="ghost" className="text-indigo-700 font-medium">
-              Sign In
-            </Button>
-          </Link>
-
-          <Link href="/sign-up" passHref>
-            <Button className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium">
-              Sign Up
-            </Button>
-          </Link>
-        </div>
-      </header>
-
-      {/* Hero Section */}
-      <main className="flex flex-col items-center mt-20 text-center px-4">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-5xl font-extrabold text-indigo-800 mb-6 max-w-3xl"
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 to-indigo-100 flex flex-col">
+        {/* Navbar */}
+        <header className="w-full py-6 px-8 flex justify-between items-center">
+          <div className="flex flex-row items-center">
+            <img src="/doggo-logo-min.png" className="w-[90px] object-contain" alt="" />
+  
+            <h1 className="text-5xl font-bold bg-gradient-to-r from-indigo-400 to-indigo-700 text-transparent bg-clip-text">
+              Graphos
+            </h1>
+          </div>
+  
+          <div className="flex gap-4">
+            <Link href="/sign-in" passHref>
+              <Button variant="ghost" className="text-indigo-700 font-medium">
+                Sign In
+              </Button>
+            </Link>
+  
+            <Link href="/sign-up" passHref>
+              <Button className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium">
+                Sign Up
+              </Button>
+            </Link>
+          </div>
+        </header>
+  
+        {/* Hero Section */}
+        <main className="flex flex-col items-center mt-20 text-center px-4">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-5xl font-extrabold text-indigo-800 mb-6 max-w-3xl"
+          >
+            Create beautiful forms. Share instantly. Collect responses effortlessly.
+          </motion.h2>
+  
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+            className="text-lg text-indigo-700 mb-10 max-w-2xl"
+          >
+            A simple and powerful way to build forms — with shareable links, realtime submissions, and a delightful builder.
+          </motion.p>
+  
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.35, duration: 0.6 }}
+            className="flex gap-4"
+          >
+            <Link href="/test-builder" className="cursor-pointer" passHref>
+              <Button className="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-6 text-lg rounded-2xl shadow-xl cursor-pointer">
+                Try Out the Demo
+              </Button>
+            </Link>
+          </motion.div>
+        </main>
+  
+        {/* Features */}
+        <section
+          id="features"
+          className="mt-24 px-8 grid md:grid-cols-3 gap-8 max-w-6xl mx-auto w-full pb-16"
         >
-          Create beautiful forms. Share instantly. Collect responses effortlessly.
-        </motion.h2>
+          <FeatureCard
+            icon={<FiEdit3 size={36} className="text-indigo-600" />}
+            title="Easy Form Builder"
+            desc="Drag & drop or click to build forms in seconds. No coding needed."
+          />
+  
+          <FeatureCard
+            icon={<FiLink size={36} className="text-indigo-600" />}
+            title="Instant Share Links"
+            desc="Share a unique link instantly and let others fill out your form — works on mobile and desktop."
+          />
+  
+          <FeatureCard
+            icon={<FiCheckCircle size={36} className="text-indigo-600" />}
+            title="Real-Time Responses"
+            desc="Track submissions live with clean, exportable data and webhooks for automation."
+          />
+        </section>
+        <BuiltWith/>
+        {/* Footer With Socials */}
+        <footer className="w-full text-center py-10 text-sm text-indigo-700 flex flex-col items-center gap-4">
+  
+          <div className="flex gap-6">
+            <a
+              href="https://www.linkedin.com/in/samul-shrestha-a10602244/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-indigo-900 transition"
+            >
+              <FiLinkedin size={24} />
+            </a>
+  
+            <a
+              href="https://github.com/Samul333"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-indigo-900 transition"
+            >
+              <FiGithub size={24} />
+            </a>
+  
+            <a
+              href="https://github.com/Samul333/graphos"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-indigo-900 transition"
+            >
+              <FiCode size={24} />
+            </a>
+          </div>
+  
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.6 }}
-          className="text-lg text-indigo-700 mb-10 max-w-2xl"
-        >
-          A simple and powerful way to build forms — with shareable links, realtime submissions, and a delightful builder.
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.35, duration: 0.6 }}
-          className="flex gap-4"
-        >
-          <Link href="/test-builder" className="cursor-pointer" passHref>
-            <Button className="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-6 text-lg rounded-2xl shadow-xl">
-              Try Out the Demo
-            </Button>
-          </Link>
-
-        </motion.div>
-      </main>
-
-      {/* Features */}
-      <section id="features" className="mt-24 px-8 grid md:grid-cols-3 gap-8 max-w-6xl mx-auto w-full pb-16">
-        <FeatureCard
-          icon={<FiEdit3 size={36} className="text-indigo-600" />}
-          title="Easy Form Builder"
-          desc="Drag & drop or click to build forms in seconds. No coding needed."
-        />
-
-        <FeatureCard
-          icon={<FiLink size={36} className="text-indigo-600" />}
-          title="Instant Share Links"
-          desc="Share a unique link instantly and let others fill out your form — works on mobile and desktop."
-        />
-
-        <FeatureCard
-          icon={<FiCheckCircle size={36} className="text-indigo-600" />}
-          title="Real-Time Responses"
-          desc="Track submissions live with clean, exportable data and webhooks for automation."
-        />
-      </section>
-
-      <footer className="w-full text-center py-8 text-sm text-indigo-600">
-        © {new Date().getFullYear()} FormCraft — Built with ♥️ using Next.js, shadcn/ui & Tailwind.
-      </footer>
-    </div>
-  );
-}
+        </footer>
+      </div>
+    );
+  }

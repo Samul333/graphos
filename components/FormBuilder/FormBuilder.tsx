@@ -92,7 +92,7 @@ function FormBuilder({form,isTest=false}:{form:Form,isTest?:boolean}) {
     <div className='flex flex-col w-full'>
         <div className='flex justify-between border b-2 p-4 gap-3 items-center'>
             <h2 className='truncate font-medium'>
-                <span>Form</span>
+                <span>Form </span>
                 {form.name}
             </h2>
 

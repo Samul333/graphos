@@ -6,7 +6,7 @@ import FormBuilder from '@/components/FormBuilder/FormBuilder'
 function TestBuilder() {
   const dummyForm = {
 
-      name: "Test Form",
+      name: "(This is the Demo, Please Sign up to get the full features)",
       id: 1,
       userId: "user-id",
       createdAt: new Date(),
