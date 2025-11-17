@@ -12,24 +12,29 @@ import useDesigner from "../hooks/useDesigner";
 import {Form,FormControl,FormDescription,FormField,FormItem,FormMessage,FormLabel} from "../ui/form"
 import { Switch } from "../ui/switch";
 import { cn } from "@/lib/utils";
+import { BsTextareaResize } from "react-icons/bs";
+import { Textarea } from "../ui/textarea";
+import { Slider } from "../ui/slider";
 import { Checkbox } from "../ui/checkbox";
-const type:ElementsType = "TextField"
+const type:ElementsType = "TextAreaField"
 
 const extraAttributes = {
-    label:"Text field",
+    label:"Text Area field",
     helperText:"Helper Text",
     required:false,
-    placeHolder:"Value here..."
+    placeHolder:"Value here...",
+    rows:3
 }
 
 const propertiesSchema = z.object({
     label:z.string().min(2).max(30),
     helperText:z.string().max(200),
     required:z.boolean(),
-    placeHolder:z.string().max(50)
+    placeHolder:z.string().max(50),
+    rows:z.number().min(1).max(10)
 })
 
-export const TextFieldFormElement:FormElement= {
+export const TextAreaFieldFormElement:FormElement= {
     type,
     construct:(id:string)=>({
         id,
@@ -37,8 +42,8 @@ export const TextFieldFormElement:FormElement= {
         extraAttributes
     }),
     designerBtnElement:{
-        icon:MdTextFields,
-        label:"Text Field"
+        icon:BsTextareaResize,
+        label:"TextArea Field"
     },
     designerComponent:DesignerComponent,
     formComponent:FormComponent,
@@ -63,7 +68,7 @@ type CustomInstance = FormElementInstance & {
 
 function FormComponent({elementInstance,submitValue,isInvalid,defaultValue}:{elementInstance:FormElementInstance,submitValue?: (key:string,value:string)=>void,isInvalid?:boolean,defaultValue?:string}){
     const element = elementInstance as CustomInstance 
-    const {label,required,placeHolder,helperText} = element.extraAttributes
+    const {label,required,placeHolder,helperText,rows} = element.extraAttributes
     const [value,setValue] = useState(defaultValue||"")
     const [error,setError] = useState(false)
 
@@ -76,10 +81,10 @@ function FormComponent({elementInstance,submitValue,isInvalid,defaultValue}:{ele
          {label}
          {required && "*"}
      </Label>
-     <Input value={value} placeholder={placeHolder} onChange={(e)=>setValue(e.target.value)}
+     <Textarea value={value} rows={rows} placeholder={placeHolder} onChange={(e)=>setValue(e.target.value)}
       onBlur={(e)=>{
         if(!submitValue) return 
-        const valid =TextFieldFormElement.validate(element,e.target.value)
+        const valid =TextAreaFieldFormElement.validate(element,e.target.value)
         setError(!valid)
         if(!valid) return ;
         submitValue(element.id,e.target.value)
@@ -99,13 +104,13 @@ function FormComponent({elementInstance,submitValue,isInvalid,defaultValue}:{ele
 
 function DesignerComponent({elementInstance}:{elementInstance:FormElementInstance}){
    const element = elementInstance as CustomInstance 
-   const {label,required,placeHolder,helperText} = element.extraAttributes
+   const {label,required,placeHolder,helperText,rows} = element.extraAttributes
    return  <div className="flex flex-col gap-2 w-full">
     <Label>
         {label}
         {required && "*"}
     </Label>
-    <Input readOnly disabled placeholder={placeHolder}/>
+    <Textarea readOnly rows={rows} disabled placeholder={placeHolder}/>
     {
         helperText && (
             <p className="text-muted-foreground text-[0.8rem]">{helperText}</p>
@@ -126,7 +131,8 @@ function PropertiesComponent({elementInstance}:{elementInstance:FormElementInsta
             label:element.extraAttributes.label,
             required:true,
             helperText:element.extraAttributes.helperText,
-            placeHolder:element.extraAttributes.placeHolder
+            placeHolder:element.extraAttributes.placeHolder,
+            rows:element.extraAttributes.rows
         }
     })
 
@@ -136,6 +142,7 @@ function PropertiesComponent({elementInstance}:{elementInstance:FormElementInsta
 
 
     function applyChanges(values:propertiesSchemaType){
+        console.log(values)
         updateElement(element.id,{
             ...element,
             extraAttributes:{
@@ -233,9 +240,35 @@ function PropertiesComponent({elementInstance}:{elementInstance:FormElementInsta
                     </div>
 
                     <FormControl>
-                            <input className="w-5 h-5 cursor-pointer" type="checkbox" checked={field.value} onChange={(e)=>{field.onChange(e.target.checked)}}/>
-                      {/* <Switch checked={field.value} onClick={(e)=>{console.log(e.target)}} onChange={(e)=>{console.log(e);field.onChange(e)}}></Switch> */}
+                        {/* <Checkbox/> */}
+                        <input className="w-5 h-5 cursor-pointer" type="checkbox" checked={field.value} onChange={(e)=>{field.onChange(e.target.checked)}}/>
+
                     </FormControl>
+                    <FormMessage/>
+                </FormItem>
+            }}
+            />
+
+
+
+            <FormField control={form.control}
+            name="rows"
+            render={({field})=>{
+                return <FormItem>
+                    <FormLabel>Rows {form.watch("rows")}</FormLabel>
+                    <FormControl>
+                       <Slider defaultValue={[field.value]}
+                        min={1}
+                        max={10}
+                        step={1}
+                        onValueChange={(value)=>{
+                            field.onChange(value[0])
+                        }}
+                       />
+                    </FormControl>
+                    <FormDescription>
+                        The Helper Text of the field. <br/> It will be displayed above the field
+                    </FormDescription>
                     <FormMessage/>
                 </FormItem>
             }}

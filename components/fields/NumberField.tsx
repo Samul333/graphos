@@ -12,14 +12,14 @@ import useDesigner from "../hooks/useDesigner";
 import {Form,FormControl,FormDescription,FormField,FormItem,FormMessage,FormLabel} from "../ui/form"
 import { Switch } from "../ui/switch";
 import { cn } from "@/lib/utils";
-import { Checkbox } from "../ui/checkbox";
-const type:ElementsType = "TextField"
+import { Bs123 } from "react-icons/bs";
+const type:ElementsType = "NumberField"
 
 const extraAttributes = {
-    label:"Text field",
+    label:"Number field",
     helperText:"Helper Text",
     required:false,
-    placeHolder:"Value here..."
+    placeHolder:"0"
 }
 
 const propertiesSchema = z.object({
@@ -29,7 +29,7 @@ const propertiesSchema = z.object({
     placeHolder:z.string().max(50)
 })
 
-export const TextFieldFormElement:FormElement= {
+export const NumberFieldFormElement:FormElement= {
     type,
     construct:(id:string)=>({
         id,
@@ -37,8 +37,8 @@ export const TextFieldFormElement:FormElement= {
         extraAttributes
     }),
     designerBtnElement:{
-        icon:MdTextFields,
-        label:"Text Field"
+        icon:Bs123,
+        label:"Number Field"
     },
     designerComponent:DesignerComponent,
     formComponent:FormComponent,
@@ -76,10 +76,10 @@ function FormComponent({elementInstance,submitValue,isInvalid,defaultValue}:{ele
          {label}
          {required && "*"}
      </Label>
-     <Input value={value} placeholder={placeHolder} onChange={(e)=>setValue(e.target.value)}
+     <Input type="number" value={value} placeholder={placeHolder} onChange={(e)=>setValue(e.target.value)}
       onBlur={(e)=>{
         if(!submitValue) return 
-        const valid =TextFieldFormElement.validate(element,e.target.value)
+        const valid =NumberFieldFormElement.validate(element,e.target.value)
         setError(!valid)
         if(!valid) return ;
         submitValue(element.id,e.target.value)
@@ -105,7 +105,7 @@ function DesignerComponent({elementInstance}:{elementInstance:FormElementInstanc
         {label}
         {required && "*"}
     </Label>
-    <Input readOnly disabled placeholder={placeHolder}/>
+    <Input readOnly type="number" disabled placeholder={placeHolder}/>
     {
         helperText && (
             <p className="text-muted-foreground text-[0.8rem]">{helperText}</p>
@@ -233,8 +233,7 @@ function PropertiesComponent({elementInstance}:{elementInstance:FormElementInsta
                     </div>
 
                     <FormControl>
-                            <input className="w-5 h-5 cursor-pointer" type="checkbox" checked={field.value} onChange={(e)=>{field.onChange(e.target.checked)}}/>
-                      {/* <Switch checked={field.value} onClick={(e)=>{console.log(e.target)}} onChange={(e)=>{console.log(e);field.onChange(e)}}></Switch> */}
+                      <Switch checked={field.value} onChange={field.onChange}></Switch>
                     </FormControl>
                     <FormMessage/>
                 </FormItem>

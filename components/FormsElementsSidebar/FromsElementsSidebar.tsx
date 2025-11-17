@@ -29,6 +29,10 @@ function FromsElementsSidebar() {
               </p>
             <div className='flex flex-row flex-wrap gap-4'>
               <SidebarBtnElements formElement={FormElements.TextField}/>
+              <SidebarBtnElements formElement={FormElements.NumberField}/>
+              <SidebarBtnElements formElement={FormElements.TextAreaField}/>
+
+
            </div> 
 
 
