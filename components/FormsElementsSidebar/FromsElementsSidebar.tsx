@@ -16,6 +16,10 @@ function FromsElementsSidebar() {
             <SidebarBtnElements formElement={FormElements.TitleField}/>
             <SidebarBtnElements formElement={FormElements.SubTitleField}/>
             <SidebarBtnElements formElement={FormElements.ParagraphField}/>
+            <SidebarBtnElements formElement={FormElements.SeparatorField}/>
+            <SidebarBtnElements formElement={FormElements.SpacerField}/>
+
+
 
            </div> 
 

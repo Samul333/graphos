@@ -7,25 +7,26 @@ import { Input } from "../ui/input";
 import  * as z from "zod"
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useDesigner from "../hooks/useDesigner";
 import {Form,FormControl,FormDescription,FormField,FormItem,FormMessage,FormLabel} from "../ui/form"
-
-import { BsTextParagraph } from "react-icons/bs";
-import { Textarea } from "../ui/textarea";
-const type:ElementsType = "ParagraphField"
+import { Switch } from "../ui/switch";
+import { cn } from "@/lib/utils";
+import { LuHeading1, LuSeparatorHorizontal } from "react-icons/lu";
+import { Slider } from "../ui/slider";
+const type:ElementsType = "SpacerField"
 
 const extraAttributes = {
-    text:"Text here",
+    height:20,
 
 }
 
 const propertiesSchema = z.object({
-    text:z.string().min(2).max(500),
+    height:z.number().min(5).max(200),
 
 })
 
-export const ParagraphFieldFormElement:FormElement= {
+export const SpacerFieldFormElement:FormElement= {
     type,
     construct:(id:string)=>({
         id,
@@ -33,8 +34,8 @@ export const ParagraphFieldFormElement:FormElement= {
         extraAttributes
     }),
     designerBtnElement:{
-        icon:BsTextParagraph,
-        label:"Paragraph Field"
+        icon:LuSeparatorHorizontal,
+        label:"Spacer Field"
     },
     designerComponent:DesignerComponent,
     formComponent:FormComponent,
@@ -52,13 +53,11 @@ type CustomInstance = FormElementInstance & {
 
 function FormComponent({elementInstance}:{elementInstance:FormElementInstance}){
     const element = elementInstance as CustomInstance 
-    const {title} = element.extraAttributes
+    const {height} = element.extraAttributes
 
 
 
-    return  <div className="flex flex-col gap-2 w-full">
-            <p className="text-xl">{title}</p>
-    </div>
+    return  <div className="" style={{height,width:"100%"}}></div>
  }
  
 
@@ -67,12 +66,12 @@ function FormComponent({elementInstance}:{elementInstance:FormElementInstance}){
 
 function DesignerComponent({elementInstance}:{elementInstance:FormElementInstance}){
    const element = elementInstance as CustomInstance 
-   const {text} = element.extraAttributes
-   return  <div className="flex flex-col gap-2 w-full">
+   const {height} = element.extraAttributes
+   return  <div className="flex flex-col gap-2 w-full items-center">
     <Label>
-        Paragraph Field
+        Spacer Field {height}px
     </Label>
-    <p className="text-xl">{text}</p>
+    <LuSeparatorHorizontal/>
    </div>
 }
 
@@ -85,7 +84,7 @@ function PropertiesComponent({elementInstance}:{elementInstance:FormElementInsta
         resolver:zodResolver(propertiesSchema),
         mode:"onBlur",
         defaultValues:{
-          text:element.extraAttributes.text
+          height:element.extraAttributes.height
         }
     })
 
@@ -108,14 +107,17 @@ function PropertiesComponent({elementInstance}:{elementInstance:FormElementInsta
             e.preventDefault();
         }} onBlur={form.handleSubmit(applyChanges)} className="space-y-3">
             <FormField control={form.control}
-            name="text"
+            name="height"
             render={({field})=>{
                 return <FormItem>
-                    <FormLabel>Paragraph</FormLabel>
+                    <FormLabel>Height px : {form.watch("height")}</FormLabel>
                     <FormControl>
-                        <Textarea rows={5} onKeyDown={(e)=>{
-                            if(e.key==="Enter")e.currentTarget.blur()
-                        }} {...field}></Textarea>
+                            <Slider defaultValue={[field.value]}
+                                min={5} max={200} step={1}
+                                onValueChange={(value)=>{
+                                    field.onChange(value[0])
+                                }}  
+                            />
                     </FormControl>
                     <FormDescription>
                         The label of the field. <br/> It will be displayed above the field
