@@ -1,5 +1,7 @@
+import { DateFieldFormElement } from "../fields/DateField";
 import { NumberFieldFormElement } from "../fields/NumberField";
 import { ParagraphFieldFormElement } from "../fields/ParagraphField";
+import { SelectFieldFormElement } from "../fields/SelectField";
 import { SpacerFieldFormElement } from "../fields/SpacerField";
 import { SeparatorFieldFormElement } from "../fields/SparetorField";
 import { SubTitleFieldFormElement } from "../fields/SubTitleField";
@@ -7,7 +9,7 @@ import { TextAreaFieldFormElement } from "../fields/TextAreaField";
 import { TextFieldFormElement } from "../fields/TextField";
 import { TitleFieldFormElement } from "../fields/TitleField";
 
-export type ElementsType = "TextField" |"TitleField" | "SubTitleField" | "ParagraphField"|"SeparatorField"|"SpacerField"|"NumberField"|"TextAreaField";
+export type ElementsType = "TextField" |"TitleField" | "SubTitleField" | "ParagraphField"|"SeparatorField"|"SpacerField"|"NumberField"|"TextAreaField"|"DateField" |"SelectField";
 
 
 
@@ -58,5 +60,7 @@ export const FormElements:FormElementsType = {
     SeparatorField:SeparatorFieldFormElement,
     SpacerField:SpacerFieldFormElement,
     NumberField:NumberFieldFormElement,
-    TextAreaField:TextAreaFieldFormElement
+    TextAreaField:TextAreaFieldFormElement,
+    DateField:DateFieldFormElement,
+    SelectField:SelectFieldFormElement
 };

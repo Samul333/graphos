@@ -31,6 +31,10 @@ function FromsElementsSidebar() {
               <SidebarBtnElements formElement={FormElements.TextField}/>
               <SidebarBtnElements formElement={FormElements.NumberField}/>
               <SidebarBtnElements formElement={FormElements.TextAreaField}/>
+              <SidebarBtnElements formElement={FormElements.DateField}/>
+              <SidebarBtnElements formElement={FormElements.SelectField}/>
+
+
 
 
            </div> 

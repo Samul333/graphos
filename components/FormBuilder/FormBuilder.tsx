@@ -1,6 +1,6 @@
 "use client";
 import { Form } from '@/lib/generated/prisma/client';
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import PreviewDialogBtn from '../PreviewDialogBtn/PreviewDialogBtn';
 import SaveFormBtn from '../SaveFormBtn/SaveFormBtn';
 import PublishFormBtn from '../PublishFormBtn/PublishFormBtn';
@@ -17,6 +17,7 @@ import Confetti from "react-confetti"
 function FormBuilder({form,isTest=false}:{form:Form,isTest?:boolean}) {
 
     const {setElements} = useDesigner()
+    const [mounted,setMounted] = useState(false)
     useEffect(()=>{
         if(!isTest){
             const elements = JSON.parse(form.content)
@@ -24,6 +25,10 @@ function FormBuilder({form,isTest=false}:{form:Form,isTest?:boolean}) {
         }
 
     },[form,setElements])
+
+    useEffect(()=>{
+        setMounted(true)
+    },[])
 
     const mouseSensor = useSensor(MouseSensor,{
         activationConstraint:{
@@ -37,9 +42,12 @@ function FormBuilder({form,isTest=false}:{form:Form,isTest?:boolean}) {
             tolerance:5
         }
     })
-
+    let shareUrl = ""
     const sensors = useSensors(mouseSensor,touchSensor)
-    const shareUrl = `${window.location.origin}/submit/${form.shareUrl}`;
+    if(mounted){
+        shareUrl = `${window.location.origin}/submit/${form.shareUrl}`;
+
+    }
 
     if(form.published){
 
